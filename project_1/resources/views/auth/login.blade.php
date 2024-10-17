@@ -1,0 +1,54 @@
+@php use Illuminate\Support\Facades\Session; @endphp
+@extends('layout')
+@section('pageTitle', 'Login')
+@section('pageContent')
+    <div class="container mt-5 mx-auto login-form">
+        <form action="{{route('login-user')}}" method="POST">
+            @if(Session::has('success'))
+                <div class="alert alert-success" role="alert">
+                    {{Session::get('success')}}
+                </div>
+            @elseif(Session::has('errorLogin'))
+                <div class="alert alert-danger" role="alert">
+                    {{Session::get('errorLogin')}}
+                </div>
+            @elseif(Session::has('errorUserNotExist'))
+                <div class="alert alert-danger" role="alert">
+                    {{Session::get('errorUserNotExist')}}
+                </div>
+            @elseif(Session::has('logout'))
+                <div class="alert alert-success" role="alert">
+                    {{Session::get('logout')}}
+                </div>
+            @endif
+            @csrf
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" name="email"
+                       placeholder="Email" value="{{old('email')}}">
+                <span class="text-danger">
+                    @error('email') {{$message}} @enderror
+                </span>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password"
+                       placeholder="Password">
+                <span class="text-danger">
+                    @error('password') {{$message}} @enderror
+                </span>
+            </div>
+            <button type="submit" class="btn btn-primary mb-3">Login</button>
+            <p><a href="/register" class="link-primary link-offset-2 link-underline-opacity-25
+            link-underline-opacity-100-hover">New user? Register now</a></p>
+        </form>
+    </div>
+
+    <style>
+        .login-form {
+            width: 30%;
+            min-width: 350px;
+        }
+    </style>
+@endsection
+
