@@ -91,7 +91,7 @@ class EventsController extends Controller
             return redirect(route('dashboard-page'))->with('success', 'Event edited successfully!');
         }
         else {
-            return redirect(route('dashboard-page'))->with('error', 'Something went wrong!');
+            return redirect(url("/events/edit/{{$updatedEvent->id}}"))->with('error', 'Something went wrong!');
         }
     }
 

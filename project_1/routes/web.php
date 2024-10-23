@@ -27,3 +27,6 @@ Route::get('/events/delete/{id}', [EventsController::class, 'deleteEvent']);
 Route::get('/categories/add', [CategoriesController::class, 'addCategoryForm'])->name('add-category-form');
 Route::post('/categories/add', [CategoriesController::class, 'addCategory'])->name('add-category');
 Route::get('/categories', [CategoriesController::class, 'categoriesList'])->name('categories-list');
+Route::get('/categories/edit/{id}', [CategoriesController::class, 'editCategoryForm']);
+Route::post('/categories/edit/{id}', [CategoriesController::class, 'editCategory']);
+Route::get('/categories/delete/{id}', [CategoriesController::class, 'deleteCategory']);
