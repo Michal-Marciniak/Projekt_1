@@ -1,14 +1,8 @@
-@php use Illuminate\Support\Facades\Session; @endphp
 @extends('layout')
 @section('pageTitle', 'Registration')
 @section('pageContent')
-    <div class="container mt-5 mx-auto login-form">
+    <div class="container mt-5 mx-auto form">
         <form action="{{route('register-user')}}" method="POST">
-            @if(Session::has('error'))
-                <div class="alert alert-danger" role="alert">
-                    {{Session::get('error')}}
-                </div>
-            @endif
             @csrf
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
@@ -39,12 +33,15 @@
             link-underline-opacity-100-hover">Already registered? Log in</a></p>
         </form>
     </div>
-
-    <style>
-        .login-form {
-            width: 30%;
-            min-width: 350px;
-        }
-    </style>
 @endsection
 
+<script>
+    setTimeout(() => {
+        let alert = document.querySelector('.alert');
+        if (alert) {
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+            alert.remove();
+        }
+    }, 3000);
+</script>
