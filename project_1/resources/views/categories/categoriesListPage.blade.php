@@ -31,8 +31,8 @@
                             </td>
                             @if(Session::has('user_id'))
                                 <td>
-                                    <a  class="btn btn-success btn-sm">Edit</a>
-                                    <a  class="btn btn-danger btn-sm"
+                                    <a href="/categories/edit/{{$category->id}}" class="btn btn-success btn-sm">Edit</a>
+                                    <a href="/categories/delete/{{$category->id}}" class="btn btn-danger btn-sm"
                                        onclick="return confirm('Are you sure to delete this category?')">Delete</a>
                                 </td>
                             @endif
