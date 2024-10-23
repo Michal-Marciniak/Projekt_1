@@ -1,26 +1,8 @@
-@php use Illuminate\Support\Facades\Session; @endphp
 @extends('layout')
 @section('pageTitle', 'Login')
 @section('pageContent')
-    <div class="container mt-5 mx-auto login-form">
+    <div class="container mt-5 mx-auto form">
         <form action="{{route('login-user')}}" method="POST">
-            @if(Session::has('success'))
-                <div class="alert alert-success" role="alert">
-                    {{Session::get('success')}}
-                </div>
-            @elseif(Session::has('errorLogin'))
-                <div class="alert alert-danger" role="alert">
-                    {{Session::get('errorLogin')}}
-                </div>
-            @elseif(Session::has('errorUserNotExist'))
-                <div class="alert alert-danger" role="alert">
-                    {{Session::get('errorUserNotExist')}}
-                </div>
-            @elseif(Session::has('logout'))
-                <div class="alert alert-success" role="alert">
-                    {{Session::get('logout')}}
-                </div>
-            @endif
             @csrf
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
@@ -43,12 +25,15 @@
             link-underline-opacity-100-hover">New user? Register now</a></p>
         </form>
     </div>
-
-    <style>
-        .login-form {
-            width: 30%;
-            min-width: 350px;
-        }
-    </style>
 @endsection
 
+<script>
+    setTimeout(() => {
+        let alert = document.querySelector('.alert');
+        if (alert) {
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+            alert.remove();
+        }
+    }, 3000);
+</script>
