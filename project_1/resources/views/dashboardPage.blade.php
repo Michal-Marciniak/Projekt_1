@@ -4,7 +4,22 @@
 @section('pageContent')
     <div class="container mt-5">
         @if($events->isNotEmpty())
-            <h1 class="mb-5" style="margin-left: -15px">Events timeline</h1>
+            <div class="d-flex justify-content-between">
+                <h1 class="mb-5" style="margin-left: -15px">Events timeline</h1>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false" style="font-size: 22px">
+                            Filter events by categories
+                        </a>
+                        <ul class="dropdown-menu">
+                            @foreach ($categories as $category)
+                                <li><a href="/events/filter/{{$category->name}}" class="nav-link">{{ $category->name }}</a></li>
+                            @endforeach
+                        </ul>
+                    </li>
+                </ul>
+            </div>
             <div class="row">
                 <table class="table table-striped">
                     <thead>

@@ -2,11 +2,8 @@
 
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\EventsController;
-use App\Models\Event;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use Illuminate\Support\Facades\Session;
 
 Route::get('/login', [AuthController::class, 'loginForm'])->name('login-form');
 Route::post('/login', [AuthController::class, 'loginUser'])->name('login-user');
@@ -23,6 +20,7 @@ Route::post('/events/add', [EventsController::class, 'addEvent'])->name('add-eve
 Route::get('/events/edit/{id}', [EventsController::class, 'editEventForm']);
 Route::post('/events/edit/{id}', [EventsController::class, 'editEvent']);
 Route::get('/events/delete/{id}', [EventsController::class, 'deleteEvent']);
+Route::get('events/filter/{categoryName}', [EventsController::class, 'filterEvents']);
 
 Route::get('/categories/add', [CategoriesController::class, 'addCategoryForm'])->name('add-category-form');
 Route::post('/categories/add', [CategoriesController::class, 'addCategory'])->name('add-category');

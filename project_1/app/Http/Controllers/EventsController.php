@@ -104,4 +104,15 @@ class EventsController extends Controller
             return redirect(route('dashboard-page'))->with('error', 'Something went wrong!');
         }
     }
+
+    public function filterEvents(string $category_name) {
+        $events = Event::where('category_name', $category_name)->orderBy('start_date', 'asc')->get();
+        $categories = Category::all();
+        if(count($events) > 0) {
+            return view('dashboardPage', compact('events', 'categories'));
+        }
+        else {
+            return redirect(route('dashboard-page'))->with('error', 'No events found with selected category!');
+        }
+    }
 }
