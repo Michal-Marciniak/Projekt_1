@@ -1,7 +1,7 @@
 @extends('layout')
 @section('pageTitle', 'Edit Event')
 @section('pageContent')
-    <div class="container mt-5 form">
+    <div class="container mt-5 form d-print-none">
         <h2>Edit Event</h2>
         <form class="mt-4" action="/events/edit/{{ $event->id }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -43,9 +43,6 @@
                         @if($event->image)
                             <img src="{{ asset('storage/' . $event->image) }}" alt="Event Image"
                                  style="width: 50px; height: 50px">
-                        @else
-                            <img src="{{ asset('storage/placeholder_images/placeholder.png') }}"
-                                 alt="Event Image" style="width: 50px; height: 50px">
                         @endif
                     </div>
                 </div>

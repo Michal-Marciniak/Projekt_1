@@ -1,7 +1,7 @@
 @extends('layout')
 @section('pageTitle', 'Add Category')
 @section('pageContent')
-    <div class="container mt-5 form">
+    <div class="container mt-5 form d-print-none">
         <h2>Add Category</h2>
         <form class="mt-4" action="{{ route('add-category') }}" method="POST" enctype="multipart/form-data">
             @csrf

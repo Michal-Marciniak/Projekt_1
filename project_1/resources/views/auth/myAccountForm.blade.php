@@ -1,7 +1,7 @@
 @extends('layout')
 @section('pageTitle', 'My Account')
 @section('pageContent')
-    <div class="container mt-5 mx-auto form">
+    <div class="container mt-5 mx-auto form d-print-none">
         <form>
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>

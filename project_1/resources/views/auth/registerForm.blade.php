@@ -1,7 +1,7 @@
 @extends('layout')
 @section('pageTitle', 'Registration')
 @section('pageContent')
-    <div class="container mt-5 mx-auto form">
+    <div class="container mt-5 mx-auto form d-print-none">
         <form action="{{route('register-user')}}" method="POST">
             @csrf
             <div class="mb-3">

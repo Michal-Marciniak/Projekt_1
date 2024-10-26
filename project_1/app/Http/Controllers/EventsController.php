@@ -106,7 +106,11 @@ class EventsController extends Controller
     }
 
     public function filterEvents(string $category_name) {
-        $events = Event::where('category_name', $category_name)->orderBy('start_date', 'asc')->get();
+        if($category_name == 'no-filter') {
+            $events = Event::all();
+        } else {
+            $events = Event::where('category_name', $category_name)->orderBy('start_date', 'asc')->get();
+        }
         $categories = Category::all();
         if(count($events) > 0) {
             return view('dashboardPage', compact('events', 'categories'));

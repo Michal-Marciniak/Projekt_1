@@ -1,7 +1,7 @@
 @extends('layout')
 @section('pageTitle', 'Add Event')
 @section('pageContent')
-    <div class="container mt-5 form">
+    <div class="container mt-5 form d-print-none">
         <h2>Add Event</h2>
         <form id="addEventForm" class="mt-4" action="{{ route('add-event') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -56,6 +56,11 @@
                         @endforeach
                     @endif
                 </select>
+                @if(!$categories->isNotEmpty())
+                    <p class="mt-2" style="color: red">
+                        There are no categories available! You have to <a href="{{ route('add-category-form') }}">add</a> categories first.
+                    </p>
+                @endif
             </div>
             <button id="addEventButton" type="submit" class="btn btn-primary mt-3">Add Event</button>
         </form>

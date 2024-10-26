@@ -2,9 +2,16 @@
 @extends('layout')
 @section('pageTitle', 'Categories')
 @section('pageContent')
-    <div class="container mt-5">
+    <div class="container mt-5 d-print-none">
         @if($categories->isNotEmpty())
-            <h1 class="mb-5" style="margin-left: -15px">Categories</h1>
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h1 class="mb-5" style="margin-left: -15px">Categories</h1>
+                </div>
+                <div>
+                    <a href="{{ route('add-category-form') }}" class="btn btn-primary btn-md">Add new category</a>
+                </div>
+            </div>
             <div class="row">
                 <table class="table table-striped">
                     <thead>
@@ -22,11 +29,7 @@
                             <td>{{ $category->name }}</td>
                             <td>
                                 @if($category->icon)
-                                    <img src="{{ asset('storage/' . $category->icon) }}" alt="Category Icon"
-                                         style="width: 100px; height: 100px">
-                                @else
-                                    <img src="{{ asset('storage/placeholder_images/placeholder.png') }}"
-                                         alt="Category Icon" style="width: 100px; height: 100px">
+                                    <img src="{{ asset('storage/' . $category->icon) }}" alt="Category Icon" class="category-icon">
                                 @endif
                             </td>
                             @if(Session::has('user_id'))
@@ -44,6 +47,15 @@
         @endif
     </div>
 @endsection
+<style>
+    tr {
+        height: 50px;
+    }
+    img.category-icon {
+        width: 30px;
+        height: 30px;
+    }
+</style>
 
 <script>
     setTimeout(() => {
