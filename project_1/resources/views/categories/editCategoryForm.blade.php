@@ -1,7 +1,7 @@
 @extends('layout')
 @section('pageTitle', 'Edit Category')
 @section('pageContent')
-    <div class="container mt-5 form">
+    <div class="container mt-5 form d-print-none">
         <h2>Edit Category</h2>
         <form class="mt-4" action="/categories/edit/{{ $category->id }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -22,9 +22,6 @@
                         @if($category->icon)
                             <img src="{{ asset('storage/' . $category->icon) }}" alt="Category Icon"
                                  style="width: 50px; height: 50px">
-                        @else
-                            <img src="{{ asset('storage/placeholder_images/placeholder.png') }}"
-                                 alt="Category Icon" style="width: 50px; height: 50px">
                         @endif
                     </div>
                 </div>

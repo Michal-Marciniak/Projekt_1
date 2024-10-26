@@ -1,7 +1,7 @@
 @extends('layout')
 @section('pageTitle', 'Login')
 @section('pageContent')
-    <div class="container mt-5 mx-auto form">
+    <div class="container mt-5 mx-auto form d-print-none">
         <form action="{{route('login-user')}}" method="POST">
             @csrf
             <div class="mb-3">

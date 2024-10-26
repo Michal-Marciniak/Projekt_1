@@ -1,7 +1,7 @@
 @extends('layout')
 @section('pageTitle', 'Reset password')
 @section('pageContent')
-    <div class="container mt-5 mx-auto form">
+    <div class="container mt-5 mx-auto form d-print-none">
         <form action="{{route('reset-password')}}" method="POST">
             @csrf
             <div class="mb-3">
