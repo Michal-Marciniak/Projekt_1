@@ -1,66 +1,116 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Event Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Projekt zarządzania wydarzeniami. System zapewnia pełny CRUD (ang. Create, Read, Update, Delete) dla wydarzeń oraz przypisanych do nich kategorii.
+Wydażenia widoczne są na osi czasu, w formie tabelki, która prezentuje podstawowe dane na temat danego wydarzenia.
 
-## About Laravel
+![image](https://github.com/user-attachments/assets/a4009cdd-6bff-41e1-9842-cb88c6dbaabf)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Projekt korzysta z frameworka Laravel oraz Blade jako silnika szablonów.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Spis treści
+- [Wymagania](#wymagania)
+- [Instalacja](#instalacja)
+- [Uruchamianie aplikacji](#uruchamianie-aplikacji)
+- [Struktura katalogów aplikacji](#struktura-katalogów-aplikacji)
+- [Struktura bazy danych](#struktura-bazy-danych)
+- [Opis kodu źródłowego](#opis-kodu-źródłowego)
+- [Zrzuty ekranu](#zrzuty-ekranu)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Wymagania
 
-## Learning Laravel
+Aby uruchomić projekt lokalnie, należy mieć zainstalowane następujące oprogramowanie:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- [XAMPP](https://www.apachefriends.org/index.html) (wraz z PHP wersja >= 8.2 oraz MySQGL)
+- [Composer](https://getcomposer.org/)
+- [Node.js](https://nodejs.org/) (wersja 14 lub wyższa)
+- [npm](https://www.npmjs.com/) (wersja 8 lub wyższa)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Instalacja
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. **Klonowanie repozytorium**
 
-## Laravel Sponsors
+   Sklonuj repozytorium na swój komputer za pomocą komendy:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+   ```bash
+   git clone https://github.com/Michal-Marciniak/Projekt_1.git
+   cd Projekt_1
 
-### Premium Partners
+## Uruchamianie aplikacji
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+1. **Uruchomienie XAMPP**
 
-## Contributing
+   Uruchom program XAMPP jako administrator oraz włącz w nim dwa moduły (Apache oraz MySQL).\
+   Po poprawnym uruchomieniu modułów powinny się one świecić na jasno-zielony kolor, jak również powinny zostać do nich przypisane porty.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+   Apache - **80, 443**\
+   MySQL - **3306**
 
-## Code of Conduct
+   ![image](https://github.com/user-attachments/assets/f84a1b36-6601-4cd8-9cfa-f147e830c051)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+2. **Budowanie oraz uruchomienie aplikacji**
 
-## Security Vulnerabilities
+    W celu zbudowania oraz uruchomienia aplikacji, należy w folderze projektu uruchomić skrypt:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    ```bash
+    npm run build
+    ```
 
-## License
+    > **⚠️ WAŻNE**: Powyższy skrypt należy uruchomić tylko raz, po sklonowaniu repozytorium!
+    > 
+    > W przypadku chęci dalszego korzystania z aplikacji, należy ją uruchamiać poprzez skrypt `npm run serve`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    Po poprawnym zbudowaniu się aplikacji, w konsoli powinien pojawić się następujący komunikat
+   
+    ![image](https://github.com/user-attachments/assets/7e67b6fd-e431-440f-9150-44ac49e06aa3)
+
+    informujący o tym, że aplikacja działa na porcie 8000, jak również poprawnie wykonane zostały skrypty dodające użytkownika admin do bazy danych, oraz uzupełniające tabele wydarzeń oraz kategorii domyślnymi wartościami.
+   
+    Dzięki temu, już po uruchomieniu aplikacji będzie można zapoznać się z jej funkcjonalnościami, bez konieczności ręcznego tworzenia nowego użytkownika, oraz dodawania kategorii i wydarzeń.
+
+    W celu korzystania z aplikacji, należy w przeglądarce wejść na adres URL [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+
+## Struktura katalogów aplikacji
+
+1. **Struktura katalogów aplikacji**
+
+   - **`app/`**: Katalog z logiką aplikacji (modele, kontrolery, widoki itp.)
+   - **`database/migrations/`**: Katalog z migracjami bazy danych
+   - **`resources/views/`**: Katalog z widokami
+   - **`routes/web.php`**: Plik z definicjami ścieżek aplikacji (routingu)
+   - **`public/`**: Katalog publiczny, dostępny z poziomu przeglądarki
+   - **`node_modules/`**: Zainstalowane zależności Node.js
+   - **`package.json`**: Plik konfiguracyjny npm
+   - **`composer.json`**: Plik konfiguracyjny Composer
+   
+## Struktura bazy danych
+
+![image](https://github.com/user-attachments/assets/87c6a868-224e-42b0-b299-19d5c1dcc384)
+
+Tabele niezaznaczone w czerwonej ramce, są tabelami domyślnie tworzonymi przez framework Laravel, natomiast 3 tabele zaznaczone w czerwonej ramce są tabelami utworzonymi poprzez napisane w kodzie migracje, 
+znajdujące się w folderze `/database/migrations`
+
+![image](https://github.com/user-attachments/assets/89e3f6b6-8930-422d-b82b-745bc48471f1)
+
+**Struktura oraz opis tabel**
+
+1. Tabela **users**
+   
+   ![image](https://github.com/user-attachments/assets/83b00f37-44bd-4a5c-95c4-2a99e1cec62c)
+
+   Tabela **users** składa się z następujących kolumn:
+   - **`id`** - przechowuje id użytkowników, używana jako klucz główny tabeli (ang. primary key)
+   - **`name`** - przechowuje nazwy użytkowników
+   - **`email`** - przechowuje emaile użytkowników
+   - **`password`** - przechowuje hasła użytkowników w formie hashy
+   - **`created_at`** - kolumna tworzona automatycznie przez framework Laravel
+   - **`updated_at`** - kolumna tworzona automatycznie przez framework Laravel
+
+2. Tabela **categories**
+
+   d
+
+3. Tabela **events**
+
+   f
+
+   
