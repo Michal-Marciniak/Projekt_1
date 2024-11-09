@@ -26,7 +26,7 @@ Projekt korzysta z frameworka Laravel oraz Blade jako silnika szablonów.
 
 Aby uruchomić projekt lokalnie, należy mieć zainstalowane następujące oprogramowanie:
 
-- [XAMPP](https://www.apachefriends.org/index.html) (wraz z PHP wersja >= 8.2 oraz MySQGL)
+- [XAMPP](https://www.apachefriends.org/index.html) (wraz z PHP wersja >= 8.2 oraz MySQL)
 - [Composer](https://getcomposer.org/)
 - [Node.js](https://nodejs.org/) (wersja 14 lub wyższa)
 - [npm](https://www.npmjs.com/) (wersja 8 lub wyższa)
