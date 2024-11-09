@@ -41,6 +41,11 @@ Aby uruchomić projekt lokalnie, należy mieć zainstalowane następujące oprog
    git clone https://github.com/Michal-Marciniak/Projekt_1.git
    cd Projekt_1
 
+2. **Pobranie repozytorium w formie .zip**
+
+   Wejście na [stronę z repozytorium](https://github.com/Michal-Marciniak/Projekt_1) oraz pobranie go jako .zip
+   ![image](https://github.com/user-attachments/assets/3f293984-9eb0-42a7-85ed-589baa3d8a91)
+
 # Uruchamianie aplikacji
 
 1. **Uruchomienie XAMPP**
