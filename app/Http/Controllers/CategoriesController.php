@@ -26,7 +26,7 @@ class CategoriesController extends Controller
         }
 
         if($category->save()) {
-            return redirect(route('add-category-form'))->with('success', 'Category added successfully');
+            return redirect(route('categories-list'))->with('success', 'Category added successfully');
         }
         else {
             return redirect(route('add-category-form'))->with('error', 'Something went wrong');
