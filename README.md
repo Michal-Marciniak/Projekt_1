@@ -521,3 +521,85 @@ Poniżej znajduje się lista funkcji w `EventsController` wraz z krótkimi opisa
 
 # Zrzuty ekranu
 
+## Autentykacja
+
+---
+
+### Logowanie
+![image](https://github.com/user-attachments/assets/15318ec9-9fb6-4478-8968-16cdb153884f)
+![image](https://github.com/user-attachments/assets/5d7e96c5-f56e-4555-88b7-ba4390ae51ac)
+
+### Rejestracja
+![image](https://github.com/user-attachments/assets/610319d3-d2dd-4a18-9c02-932d12bac37f)
+
+### Resetowanie hasła
+![image](https://github.com/user-attachments/assets/5219540f-9dc1-4118-973e-c2c4b53bf2bf)
+![image](https://github.com/user-attachments/assets/ae675381-7806-4678-8e2e-1feb5bb87f49)
+![image](https://github.com/user-attachments/assets/0934851c-b088-404f-aa69-97fe905d5b0f)
+![image](https://github.com/user-attachments/assets/6bfd9060-ef26-47d5-8414-8a49fad27e66)
+
+### Operacje Edycji/Usuwania wydarzeń/kategorii tylko dla zalogowanych użytkowników
+| Użytkownik niezalogowany | Użytkownik zalogowany |
+|-----------------------|----------------------------------------------------------------------------------|
+| ![image](https://github.com/user-attachments/assets/411dd080-5ef8-4d85-8236-f65de7f18416) | ![image](https://github.com/user-attachments/assets/58b9fd15-79f2-4d9a-9921-00189346b553) |
+| ![image](https://github.com/user-attachments/assets/b4016889-a1bb-4e7a-abdb-21d4ad2b3a20) | ![image](https://github.com/user-attachments/assets/2a996287-c6eb-43a5-9127-0347c71b604a) ![image](https://github.com/user-attachments/assets/b1e2a821-5877-4263-bcbd-9dd55788a80e) |
+
+
+## Wydarzenia
+
+---
+
+### Lista Wydarzeń
+![image](https://github.com/user-attachments/assets/b5618640-f741-4afe-824a-42f645f2e9cb)
+
+### Dodawanie Wydarzenia
+![image](https://github.com/user-attachments/assets/ae580878-98cf-4945-aa72-d061d36329a9)
+![image](https://github.com/user-attachments/assets/3972c517-f610-47e2-b152-1453db5062c4)
+
+### Edycja Wydarzenia
+![image](https://github.com/user-attachments/assets/e52e649b-caa8-4ccc-8b4f-9985779b35b7)
+![image](https://github.com/user-attachments/assets/b67bb429-6cb9-48b4-95f8-b806435cf56c)
+
+### Usuwanie Wydarzenia
+![image](https://github.com/user-attachments/assets/a456ffac-7956-4b03-8753-6ab8a77732da)
+![image](https://github.com/user-attachments/assets/8e4790e4-a747-42f9-ac28-98ee49f4844f)
+![image](https://github.com/user-attachments/assets/eb2a9a81-aaa1-446b-b3a2-fef1600a9d05)
+
+## Kategorie
+
+---
+
+### Lista Kategorii
+![image](https://github.com/user-attachments/assets/6ec76f4c-5858-431c-9fa3-b1b6d1777229)
+![image](https://github.com/user-attachments/assets/ff7ee95c-4e11-471d-be6c-70e3775c36e6)
+
+### Dodawanie Kategorii
+![image](https://github.com/user-attachments/assets/c629701e-d15f-4efa-8c25-0ef2a08f693d)
+![image](https://github.com/user-attachments/assets/f6056c9b-5bac-4d5f-adc3-ee2e877d30f3)
+![image](https://github.com/user-attachments/assets/1b5a872d-6a7e-411e-9cce-def98606659a)
+
+### Edycja Kategorii
+![image](https://github.com/user-attachments/assets/2d431b64-eeed-4a52-ab8e-a065cbe5e280)
+![image](https://github.com/user-attachments/assets/329ff1d7-8a98-4712-89a1-56ddcb2d84d5)
+
+### Usuwanie Kategorii
+![image](https://github.com/user-attachments/assets/4c1cd78f-fa58-4b1f-8af1-1af5c8e0c8ce)
+
+### Filtrowanie wydarzeń po danej kategorii
+![image](https://github.com/user-attachments/assets/0d254a5b-e773-4eda-b11f-754a3039e60a)
+![image](https://github.com/user-attachments/assets/24ea2898-592f-4568-9ecb-58ce85b57e3f)
+![image](https://github.com/user-attachments/assets/84c3987a-c337-4457-a431-7cada14c7602)
+![image](https://github.com/user-attachments/assets/d463cd40-0595-4b7c-b643-dc888ebdb3d2)
+
+## Walidacje w aplikacji
+
+---
+
+![image](https://github.com/user-attachments/assets/3194ce67-7191-4343-ad39-68b23640c2d6)
+![image](https://github.com/user-attachments/assets/3afdc757-9807-4b77-be62-dbd0bdc433fd)
+![image](https://github.com/user-attachments/assets/7ac3dc38-3ca4-4506-9e22-34f43c511107)
+![image](https://github.com/user-attachments/assets/b99a49ef-a512-4b25-a5cb-9e863d39ce92)
+![image](https://github.com/user-attachments/assets/0a03ab9a-7f0a-4635-bebb-acb0385da52c)
+![image](https://github.com/user-attachments/assets/3d7179c7-e594-4277-bdc9-239dcd5530e8)
+![image](https://github.com/user-attachments/assets/b12d29f1-fea1-4874-ac80-e82f6d188931)
+
