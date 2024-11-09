@@ -20,6 +20,7 @@ Projekt korzysta z frameworka Laravel oraz Blade jako silnika szablonów.
 - [Struktura bazy danych](#struktura-bazy-danych)
 - [Opis kodu źródłowego](#opis-kodu-źródłowego)
 - [Zrzuty ekranu](#zrzuty-ekranu)
+- [Drukowanie zawartości pamiętnika](#drukowanie-zawartości-pamiętnika)
 
 # Wymagania
 
@@ -602,4 +603,13 @@ Poniżej znajduje się lista funkcji w `EventsController` wraz z krótkimi opisa
 ![image](https://github.com/user-attachments/assets/0a03ab9a-7f0a-4635-bebb-acb0385da52c)
 ![image](https://github.com/user-attachments/assets/3d7179c7-e594-4277-bdc9-239dcd5530e8)
 ![image](https://github.com/user-attachments/assets/b12d29f1-fea1-4874-ac80-e82f6d188931)
+
+# Drukowanie zawartości pamiętnika
+
+### Plik .pdf wydruku zawartości pamiętnika
+![image](https://github.com/user-attachments/assets/39bb8f8c-0890-459a-9dce-4f0abdd09d46)
+
+Wydruk pozbawiony kontrolek sterujących aplikacji (nagłówek, nawigacja, filtrowanie itp.) udało się uzyskać poprzez dodanie do elementów html odpowiedniej klasy css w Bootstrap `d-print-none`
+
+![image](https://github.com/user-attachments/assets/af9c5e34-c8fc-41a2-a476-20046864c80d)
 
