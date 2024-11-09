@@ -7,6 +7,11 @@ Wydażenia widoczne są na osi czasu, w formie tabelki, która prezentuje podsta
 
 Projekt korzysta z frameworka Laravel oraz Blade jako silnika szablonów.
 
+> #### Dane logowania do aplikacji na konto admin (Aby mieć dostęp do akcji CRUD na wydarzeniach oraz kategoriach)
+> 
+> **login**: `'admin@admin.com'`\
+> **hasło**: `qweQWE123!@#`
+
 ## Spis treści
 - [Wymagania](#wymagania)
 - [Instalacja](#instalacja)
@@ -16,7 +21,7 @@ Projekt korzysta z frameworka Laravel oraz Blade jako silnika szablonów.
 - [Opis kodu źródłowego](#opis-kodu-źródłowego)
 - [Zrzuty ekranu](#zrzuty-ekranu)
 
-## Wymagania
+# Wymagania
 
 Aby uruchomić projekt lokalnie, należy mieć zainstalowane następujące oprogramowanie:
 
@@ -25,7 +30,7 @@ Aby uruchomić projekt lokalnie, należy mieć zainstalowane następujące oprog
 - [Node.js](https://nodejs.org/) (wersja 14 lub wyższa)
 - [npm](https://www.npmjs.com/) (wersja 8 lub wyższa)
 
-## Instalacja
+# Instalacja
 
 1. **Klonowanie repozytorium**
 
@@ -35,7 +40,7 @@ Aby uruchomić projekt lokalnie, należy mieć zainstalowane następujące oprog
    git clone https://github.com/Michal-Marciniak/Projekt_1.git
    cd Projekt_1
 
-## Uruchamianie aplikacji
+# Uruchamianie aplikacji
 
 1. **Uruchomienie XAMPP**
 
@@ -69,7 +74,7 @@ Aby uruchomić projekt lokalnie, należy mieć zainstalowane następujące oprog
 
     W celu korzystania z aplikacji, należy w przeglądarce wejść na adres URL [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 
-## Struktura katalogów aplikacji
+# Struktura katalogów aplikacji
 
 1. **Struktura katalogów aplikacji**
 
@@ -82,7 +87,7 @@ Aby uruchomić projekt lokalnie, należy mieć zainstalowane następujące oprog
    - **`package.json`**: Plik konfiguracyjny npm
    - **`composer.json`**: Plik konfiguracyjny Composer
    
-## Struktura bazy danych
+# Struktura bazy danych
 
 ![image](https://github.com/user-attachments/assets/87c6a868-224e-42b0-b299-19d5c1dcc384)
 
@@ -91,26 +96,428 @@ znajdujące się w folderze `/database/migrations`
 
 ![image](https://github.com/user-attachments/assets/89e3f6b6-8930-422d-b82b-745bc48471f1)
 
-**Struktura oraz opis tabel**
+## **Struktura oraz opis tabel**
 
-1. Tabela **users**
+### 1. Tabela **users**
+
+![image](https://github.com/user-attachments/assets/9802595c-ab20-461e-aac5-ceaf03b58661)
+
+Tabela **users** składa się z następujących kolumn:
+
+- `id` - przechowuje id użytkowników, używana jako klucz główny tabeli (ang. primary key)
+- `name` - przechowuje nazwy użytkowników
+- `email` - przechowuje emaile użytkowników
+- `password` - przechowuje hasła użytkowników w formie hashy
+- `created_at` - kolumna tworzona automatycznie przez framework Laravel
+- `updated_at` - kolumna tworzona automatycznie przez framework Laravel
+
+### 2. Tabela **categories**
+
+![image](https://github.com/user-attachments/assets/3444b0cf-5a24-4007-b002-fb2699773080)
+
+Tabela **categories** składa się z następujących kolumn:
+
+- `id` - przechowuje id kategorii, używana jako klucz główny tabeli (ang. primary key)
+- `name` - przechowuje nazwy kategorii
+- `icon` - przechowuje ikonki kategorii
+- `created_at` - kolumna tworzona automatycznie przez framework Laravel
+- `updated_at` - kolumna tworzona automatycznie przez framework Laravel
+
+### 3. Tabela **events**
+
+![image](https://github.com/user-attachments/assets/aa0d5192-adf4-43d9-9caa-70ec93b21c72)
+
+Tabela **events** składa się z następujących kolumn:
+
+- `id` - przechowuje id wydarzeń, używana jako klucz główny tabeli (ang. primary key)
+- `title` - przechowuje tytuły wydarzeń
+- `description` - przechowuje opisy wydarzeń
+- `start_date` - przechowuje daty początkowe wydarzeń
+- `end_date` - przechowuje daty końcowe wydarzeń (dodana walidacja na to, aby data końcowa nie mogła być wcześniejsza niż data początkowa)
+- `image` - przechowuje zdjęcia wydarzeń
+- `category_name` - przechowuje nazwę kategorii przypisaną do danych wydarzeń
+- `category_id` - przechowuje id kategorii przypisaną do danych wydarzeń, używana jako klucz obcy do kolumny `id` w tabeli **categories**
+- `created_at` - kolumna tworzona automatycznie przez framework Laravel
+- `updated_at` - kolumna tworzona automatycznie przez framework Laravel
+
+Tabela **events** została zaprojektowana w taki sposób, aby kolumna `category_id` była kluczem obcym do kolumny `id` w tabeli **categories**.\
+Dzięki temu, zachowana jest spójność w bazie danych, oraz zmiany w tabeli kategorii, widoczne są również w tabeli wydarzeń.
+
+
+# Opis kodu źródłowego
+
+## **Architektura aplikacji**
+
    
-   ![image](https://github.com/user-attachments/assets/83b00f37-44bd-4a5c-95c4-2a99e1cec62c)
+ Aplikacja została stworzona w oparciu o wzorzec architektoniczny MVC (ang. Model-View-Controller), co pozwala na wyraźne rozdzielenie logiki biznesowej, interfejsu użytkownika i logiki sterowania. Aplikacja umożliwia użytkownikom zarządzanie wydarzeniami oraz przypisywanie ich do odpowiednich kategorii. Oto struktura dokumentacji aplikacji:
+    
+**Model**: Odpowiada za logikę biznesową i dostęp do danych. Model zarządza danymi dotyczącymi wydarzeń (np. tytuł, opis, data) oraz kategorii (np. nazwa kategorii), a także obsługuje operacje CRUD (ang. Create, Read, Update, Delete) dla tych danych. Model komunikuje się z bazą danych i zapewnia spójność danych w aplikacji.
 
-   Tabela **users** składa się z następujących kolumn:
-   - **`id`** - przechowuje id użytkowników, używana jako klucz główny tabeli (ang. primary key)
-   - **`name`** - przechowuje nazwy użytkowników
-   - **`email`** - przechowuje emaile użytkowników
-   - **`password`** - przechowuje hasła użytkowników w formie hashy
-   - **`created_at`** - kolumna tworzona automatycznie przez framework Laravel
-   - **`updated_at`** - kolumna tworzona automatycznie przez framework Laravel
+Modele znajdują się w folderze `app/Models` \
+![image](https://github.com/user-attachments/assets/0adc88a5-5b63-4f6d-a452-15a0b641e899)
 
-2. Tabela **categories**
+**View**: Przedstawia dane użytkownikowi i umożliwia interakcję z aplikacją. Widoki renderują interfejs użytkownika (UI) i wyświetlają dane z modelu, takie jak lista wydarzeń oraz szczegóły każdego z nich.
 
-   d
+Widoki znajdują się w folderze `resources/views` \
+![image](https://github.com/user-attachments/assets/fd6e0b6f-580f-45ee-9926-fe85f8bab28e)
 
-3. Tabela **events**
+W aplikacji do zarządzania wydarzeniami, do tworzenia widoków wykorzystano główny szablon o nazwie `layout.blade.php`, który stanowi podstawę interfejsu użytkownika i jest rozszerzany przez wszystkie inne widoki. Szablon ten zawiera wspólną strukturę dla całej aplikacji, taką jak nagłówek i nawigacja, co zapewnia spójny wygląd i ułatwia utrzymanie kodu.
 
-   f
+W szablonie `layout.blade.php` zastosowano funkcję `@yield()`, która umożliwia definiowanie dynamicznych miejsc do wstawiania treści. Widoki rozszerzające `layout.blade.php` mogą wypełniać te miejsca treściami specyficznymi dla danego widoku, co pozwala na dostosowanie interfejsu do różnych funkcji aplikacji, takich jak wyświetlanie listy wydarzeń czy szczegółów wydarzenia.
 
-   
+Dzięki tej strukturze, każdy widok może zawierać tylko swoją unikalną zawartość, bez konieczności powielania wspólnych elementów, co zwiększa modularność, czytelność i ułatwia zarządzanie wyglądem aplikacji.
+
+**Controller**: Steruje przepływem danych między modelem a widokiem. Kontroler odbiera akcje użytkownika (np. dodanie nowego wydarzenia, edycja, usuwanie) i odpowiednio aktualizuje model, a następnie aktualizuje widok. Kontroler pełni funkcję pośrednika, zarządzając logiką aplikacji i przepływem danych.
+
+Kontrolery znajdują się w folderze `app/Http/Controllers` \
+![image](https://github.com/user-attachments/assets/af9ae2cc-1653-4662-8bb9-a7cdfed0f7ff)
+
+Kontrolery zostały zorganizowane w grupy w celu rozdzielenia odpowiedzialności i ułatwienia zarządzania kodem:
+
+**Kontroler Autentykacji**: Odpowiadają za operacje związane z logowaniem, rejestracją i zarządzaniem sesjami użytkowników. Te kontrolery obsługują funkcje, takie jak logowanie i wylogowywanie użytkownika, a także resetowanie hasła, co zapewnia bezpieczny dostęp do aplikacji.
+
+**Kontroler Kategorii**: Są odpowiedzialne za operacje na kategoriach wydarzeń. Te kontrolery obsługują procesy tworzenia, edycji, usuwania i wyświetlania kategorii, co umożliwia kategoryzowanie wydarzeń zgodnie z potrzebami użytkowników.
+
+**Kontroler Wydarzeń**: Zarządzają logiką dotyczącą samych wydarzeń, w tym ich tworzeniem, edytowaniem, wyświetlaniem szczegółów oraz usuwaniem. Kontrolery te obsługują operacje CRUD i dbają o aktualizację danych w bazie.
+
+Podział kontrolerów na grupy pozwala na lepsze zarządzanie kodem, zwiększa jego czytelność i modularność. Dzięki temu każdy kontroler ma jasno określoną odpowiedzialność, co ułatwia rozwój i konserwację aplikacji.
+
+## **Routing Aplikacji**
+Routing w aplikacji został zorganizowany w trzy główne grupy: **Routy Autentykacji**, **Routy Wydarzeń** oraz **Routy Kategorii**. Każda grupa obsługuje określone funkcje, co zapewnia lepszą czytelność i łatwiejszą nawigację.
+
+### 1. **Ścieżki Autentykacji**
+
+Ścieżki te obsługują procesy logowania, rejestracji, zarządzania kontem użytkownika oraz resetowania hasła. Wszystkie są przypisane do odpowiednich metod w kontrolerze `AuthController`.
+
+| Metoda | Ścieżka           | Opis                                  | Nazwa Routy           |
+|--------|--------------------|---------------------------------------|------------------------|
+| `GET`  | `/login`          | Wyświetla formularz logowania         | `login-form`          |
+| `POST` | `/login`          | Przetwarza logowanie użytkownika      | `login-user`          |
+| `GET`  | `/register`       | Wyświetla formularz rejestracji       | `register-form`       |
+| `POST` | `/register`       | Przetwarza rejestrację użytkownika    | `register-user`       |
+| `GET`  | `/logout`         | Wylogowuje użytkownika                | `logout`              |
+| `GET`  | `/my-account`     | Wyświetla profil użytkownika          | `my-account-form`     |
+| `GET`  | `/reset-password` | Wyświetla formularz resetowania hasła | `reset-password-form` |
+| `POST` | `/reset-password` | Przetwarza resetowanie hasła          | `reset-password`      |
+
+### 2. **Ścieżki Wydarzeń**
+
+Ścieżki te zarządzają operacjami CRUD dla wydarzeń, umożliwiając dodawanie, edytowanie, usuwanie oraz filtrowanie wydarzeń. Są przypisane do metod w `EventsController`.
+
+| Metoda | Ścieżka                   | Opis                                     | Nazwa Routy          |
+|--------|----------------------------|------------------------------------------|-----------------------|
+| `GET`  | `/`                        | Wyświetla stronę główną (dashboard)      | `dashboard-page`     |
+| `GET`  | `/events/add`              | Wyświetla formularz dodawania wydarzenia | `add-event-form`     |
+| `POST` | `/events/add`              | Przetwarza dodanie wydarzenia            | `add-event`          |
+| `GET`  | `/events/edit/{id}`        | Wyświetla formularz edycji wydarzenia    | -                    |
+| `POST` | `/events/edit/{id}`        | Przetwarza edycję wydarzenia             | -                    |
+| `GET`  | `/events/delete/{id}`      | Usuwa wydarzenie                         | -                    |
+| `GET`  | `/events/filter/{categoryName}` | Filtruje wydarzenia według kategorii | -                    |
+
+### 3. **Ścieżki Kategorii**
+
+Ścieżki te odpowiadają za zarządzanie kategoriami, w tym ich tworzenie, edytowanie i usuwanie, a także wyświetlanie listy kategorii. Przypisane są do metod w `CategoriesController`.
+
+| Metoda | Ścieżka                   | Opis                                 | Nazwa Routy         |
+|--------|----------------------------|--------------------------------------|----------------------|
+| `GET`  | `/categories/add`          | Wyświetla formularz dodawania kategorii | `add-category-form` |
+| `POST` | `/categories/add`          | Przetwarza dodanie kategorii            | `add-category`      |
+| `GET`  | `/categories`              | Wyświetla listę kategorii               | `categories-list`   |
+| `GET`  | `/categories/edit/{id}`    | Wyświetla formularz edycji kategorii    | -                   |
+| `POST` | `/categories/edit/{id}`    | Przetwarza edycję kategorii             | -                   |
+| `GET`  | `/categories/delete/{id}`  | Usuwa kategorię                         | -                   |
+
+Struktura routingu w aplikacji jest zoptymalizowana, aby zapewnić łatwy dostęp do wszystkich kluczowych funkcji związanych z autoryzacją, zarządzaniem wydarzeniami i kategoriami. Podział na grupy funkcjonalne poprawia modularność i czytelność kodu, ułatwiając dalszy rozwój i utrzymanie aplikacji.
+
+## **Własne komendy do tworzenia bazy danych oraz uzupełniania jej domyślnymi wartościami**
+
+Poniżej opisano niestandardowe komendy: `CreateDatabase`, `AddAdminUser` i `SeedDefaultData`.\
+Każda z tych komend pełni konkretną rolę w procesie przygotowywania i zarządzania danymi w aplikacji.
+
+### 1. **CreateDatabase.php**
+
+```php
+class CreateDatabase extends Command
+{
+    protected $signature = 'db:create';
+    protected $description = 'Create the database if it does not exist';
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function handle()
+    {
+        $database = config('database.connections.mysql.database');
+
+        config(['database.connections.mysql.database' => null]);
+
+        $query = "CREATE DATABASE IF NOT EXISTS `$database` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci";
+
+        DB::statement($query);
+
+        config(['database.connections.mysql.database' => $database]);
+
+        $this->info("Database `$database` created or already exists.");
+    }
+}
+```
+Ta komenda jest odpowiedzialna za tworzenie bazy danych, która będzie używana przez aplikację.
+Łączy się z serwerem bazy danych, wykorzystując dane uwierzytelniające zapisane w pliku .env (jak DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD).
+Sprawdza, czy baza danych o podanej nazwie (DB_DATABASE w pliku .env) już istnieje.
+Jeśli baza danych nie istnieje, komenda tworzy nową bazę.
+
+### 2. **AddAdminUser.php**
+
+```php
+class AddAdminUser extends Command
+{
+    protected $signature = 'db:add-admin-user';
+    protected $description = 'Add an admin user to the database';
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function handle()
+    {
+        $name = 'admin';
+        $email = 'admin@admin.com';
+        $password = 'qweQWE123!@#';
+
+        $adminUser = User::create([
+            'id' => 1,
+            'name' => $name,
+            'email' => $email,
+            'password' => Hash::make($password),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        $this->info("Admin user created successfully");
+    }
+}
+```
+Komenda ta automatycznie dodaje domyślnego użytkownika z rolą administratora do aplikacji, co ułatwia dostęp i zarządzanie aplikacją podczas testów.
+
+### 3. **SeedDefaultData.php**
+
+```php
+class SeedDefaultData extends Command
+{
+    protected $signature = 'db:seed-default';
+    protected $description = 'Seed default categories and events';
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function handle()
+    {
+        $categories = [
+            ['id' => 1, 'name' => 'Category 1', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 2, 'name' => 'Category 2', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 3, 'name' => 'Category 3', 'created_at' => now(), 'updated_at' => now()],
+        ];
+
+        $events = [
+            [
+                'id' => 1,
+                'title' => 'Event 1',
+                'description' => 'Event 1 description',
+                'start_date' => Carbon::now(),
+                'end_date' => Carbon::now()->addDays(1),
+                'category_name' => 'Category 1',
+                'category_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => 2,
+                'title' => 'Event 2',
+                'description' => 'Event 2 description',
+                'start_date' => Carbon::now()->addDays(2),
+                'end_date' => Carbon::now()->addDays(3),
+                'category_name' => 'Category 2',
+                'category_id' => 2,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => 3,
+                'title' => 'Event 3',
+                'description' => 'Event 3 description',
+                'start_date' => Carbon::now()->addDays(4),
+                'end_date' => Carbon::now()->addDays(5),
+                'category_name' => 'Category 3',
+                'category_id' => 3,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+        ];
+
+        DB::table('categories')->insertOrIgnore($categories);
+        DB::table('events')->insertOrIgnore($events);
+
+        $this->info('Default categories and events seeded successfully.');
+    }
+}
+```
+Komenda zasila bazę danych domyślnymi wartościami, które są użyteczne do wstępnego wypełnienia tabel z danymi, takimi jak wydarzenia i kategorie.
+
+
+## **Skrypty budujące oraz uruchamiające aplikację znajdujące się w pliku package.json**
+
+### 1. Skrypt `serve`
+Skrypt `serve` uruchamia lokalny serwer PHP Laravel:
+
+- **`php artisan serve`** – Uruchamia serwer developerski Laravel na domyślnym porcie `8000`. Serwer ten pozwala na testowanie aplikacji lokalnie podczas procesu tworzenia.
+
+### 2. Skrypt `build`
+Skrypt `build` zawiera pełen zestaw komend potrzebnych do przygotowania i uruchomienia aplikacji od podstaw. Poniżej opis poszczególnych komend:
+
+- **`cp .env.example .env`** – Kopiuje przykładowy plik konfiguracyjny `.env.example` i tworzy plik `.env` z podstawową konfiguracją środowiska.
+- **`npm install`** – Instaluje wszystkie zależności front-endowe zdefiniowane w `package.json`.
+- **`composer install`** – Instaluje wszystkie zależności backendowe zdefiniowane w `composer.json`.
+- **`composer dump-autoload`** – Optymalizuje ładowanie klas w Laravel, co skraca czas ładowania plików klas.
+- **`php artisan key:generate`** – Generuje klucz aplikacji, niezbędny do bezpiecznego szyfrowania danych w Laravel.
+- **`php artisan db:create`** – Tworzy nową bazę danych na podstawie konfiguracji w `.env` (wymaga, aby komenda `db:create` była zdefiniowana w aplikacji).
+- **`php artisan migrate`** – Przeprowadza migracje, tworząc struktury tabel i relacje w bazie danych.
+- **`php artisan db:add-admin-user`** – Dodaje domyślnego administratora do aplikacji (komenda wymaga zdefiniowania w kodzie).
+- **`php artisan db:seed-default`** – Zasila bazę danych domyślnymi danymi (również wymaga niestandardowego seeda).
+- **`php artisan storage:link`** – Tworzy symboliczne linki do katalogu `storage`, aby pliki były dostępne publicznie.
+- **`php artisan serve`** – Ponownie uruchamia lokalny serwer developerski Laravel na porcie `8000`.
+
+### **Opis**
+- Skrypt `serve` nadaje się do codziennego uruchamiania aplikacji na lokalnym serwerze.
+- Skrypt `build` przygotowuje aplikację do działania od zera, wykonując wszystkie konieczne kroki, od instalacji zależności po przygotowanie bazy danych.
+
+
+## **Migracje**
+
+Poniżej znajduje się opis migracji użytych do stworzenia tabel: `users`, `categories`, i `events` w bazie danych aplikacji.
+
+### Migracja `users`
+Tworzy tabelę użytkowników z informacjami o nazwie, e-mailu oraz haśle.
+
+```php
+public function up(): void
+{
+    Schema::create('users', function (Blueprint $table) {
+        $table->id()->autoIncrement();
+        $table->string('name');
+        $table->string('email')->unique();
+        $table->string('password');
+        $table->timestamps();
+    });
+}
+```
+Opis Kolumn:
+
+- `id` – Klucz główny, automatycznie inkrementowany.
+- `name` – Nazwa użytkownika, przechowywana jako string.
+- `email` – Unikalny adres e-mail użytkownika.
+- `password` – Hasło użytkownika.
+- `timestamps` – Automatycznie dodane znaczniki czasu (created_at i updated_at).
+
+
+### Migracja `categories`
+Tworzy tabelę kategorii, z których każda może posiadać nazwę i opcjonalną ikonę.
+
+```php
+public function up(): void
+{
+    Schema::create('categories', function (Blueprint $table) {
+        $table->id()->autoIncrement();
+        $table->string('name');
+        $table->string('icon')->nullable();
+        $table->timestamps();
+    });
+}
+```
+Opis Kolumn:
+
+- `id` – Klucz główny, automatycznie inkrementowany.
+- `name` – Nazwa kategorii.
+- `icon` – Opcjonalna ikona kategorii.
+- `timestamps` – Automatycznie dodane znaczniki czasu (created_at i updated_at).
+
+
+### Migracja `events`
+Tworzy tabelę wydarzeń z powiązanymi kategoriami oraz szczegółowymi informacjami o każdym wydarzeniu.
+
+```php
+public function up(): void
+{
+    Schema::create('events', function (Blueprint $table) {
+        $table->id()->autoIncrement();
+        $table->string('title');
+        $table->text('description');
+        $table->date('start_date');
+        $table->date('end_date');
+        $table->string('image')->nullable();
+        $table->string('category_name');
+        $table->foreignId('category_id')->constrained()->onDelete('cascade');
+        $table->timestamps();
+    });
+}
+```
+Opis Kolumn:
+
+- `id` – Klucz główny, automatycznie inkrementowany.
+- `title` – Tytuł wydarzenia.
+- `description` – Opis wydarzenia.
+- `start_date` – Data rozpoczęcia wydarzenia.
+- `end_date` – Data zakończenia wydarzenia.
+- `image` – Opcjonalne zdjęcie wydarzenia.
+- `category_name` – Nazwa powiązanej kategorii.
+- `category_id` – Klucz obcy odnoszący się do tabeli categories.
+- `timestamps` – Automatycznie dodane znaczniki czasu (created_at i updated_at).
+
+
+## **Kontrolery (ang. Controllers)**
+### Kontroler `AuthController`
+
+Poniżej znajduje się lista funkcji w `AuthController` wraz z krótkimi opisami ich działania.
+
+- **`loginForm()`** – Wyświetla formularz logowania dla użytkownika.
+- **`loginUser(Request $request)`** – Obsługuje proces logowania użytkownika, weryfikując dane logowania i zapisując sesję po pomyślnym logowaniu.
+- **`registerForm()`** – Wyświetla formularz rejestracji dla nowego użytkownika.
+- **`registerUser(Request $request)`** – Obsługuje rejestrację użytkownika, walidując dane i tworząc nowego użytkownika w bazie danych.
+- **`logout()`** – Wylogowuje użytkownika i usuwa wszystkie dane sesji.
+- **`myAccountForm()`** – Wyświetla formularz szczegółów konta użytkownika.
+- **`resetPasswordForm()`** – Wyświetla formularz zmiany hasła.
+- **`resetPassword(Request $request)`** – Obsługuje zmianę hasła, walidując stare hasło i aktualizując hasło użytkownika na nowe.
+
+---
+
+### Kontroler `CategoriesController`
+
+Poniżej znajduje się lista funkcji w `CategoriesController` wraz z krótkimi opisami ich działania.
+
+- **`addCategoryForm()`** – Wyświetla formularz dodawania nowej kategorii.
+- **`addCategory(Request $request)`** – Obsługuje dodawanie nowej kategorii, walidując dane i zapisując kategorię w bazie.
+- **`categoriesList()`** – Wyświetla listę wszystkich kategorii.
+- **`editCategoryForm(int $id)`** – Wyświetla formularz edycji wybranej kategorii.
+- **`editCategory(Request $request, int $id)`** – Obsługuje edycję kategorii, aktualizując nazwę lub ikonę.
+- **`deleteCategory(int $id)`** – Usuwa wybraną kategorię po upewnieniu się, że nie jest powiązana z żadnymi wydarzeniami.
+
+---
+
+### Kontroler `EventsController`
+
+Poniżej znajduje się lista funkcji w `EventsController` wraz z krótkimi opisami ich działania.
+
+- **`dashboardPage()`** – Wyświetla stronę główną z listą wydarzeń i kategorii.
+- **`addEventForm()`** – Wyświetla formularz dodawania nowego wydarzenia.
+- **`addEvent(Request $request)`** – Obsługuje dodawanie nowego wydarzenia, walidując dane i zapisując wydarzenie w bazie.
+- **`editEventForm(int $id)`** – Wyświetla formularz edycji wybranego wydarzenia.
+- **`editEvent(Request $request, int $id)`** – Obsługuje edycję wydarzenia, aktualizując dane, takie jak tytuł, opis, daty i kategoria.
+- **`deleteEvent(int $id)`** – Usuwa wybrane wydarzenie z bazy danych.
+- **`filterEvents(string $category_name)`** – Filtruje listę wydarzeń według wybranej kategorii lub wyświetla wszystkie wydarzenia.
+
+# Zrzuty ekranu
+
